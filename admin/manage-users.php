@@ -61,7 +61,7 @@
                 </li>
                 <li>
                     <a href="./manage-users.php" class="active"><i class="fa fa-users-cog"></i>
-                        <h5>Manage User</h5>
+                        <h5>Manage Users</h5>
                     </a>
                 </li>
                 <li>

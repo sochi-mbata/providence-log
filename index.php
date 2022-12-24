@@ -50,7 +50,7 @@
     <!-- ================== END OF FEATURED ============= -->
 
 
-<div class="posts <?= mysqli_num_rows($query_posts) > 0 ? '' : 'section__extra-margin' ?>">
+<div class="posts <?= mysqli_num_rows($query_posts_all) > 0 ? '' : 'section__extra-margin' ?>">
     <div class="container posts__container">
         <?php
             $query_posts_all = mysqli_query($con, "SELECT * FROM posts ORDER BY id DESC LIMIT 6");
@@ -119,4 +119,4 @@
 
 <!-- ================== END OF CATEGORY BUTTONS ============= -->
 
-    <?php include "partials/footer.php"; ?>
+<?php include "partials/footer.php" ?>

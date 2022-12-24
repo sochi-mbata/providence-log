@@ -1,22 +1,19 @@
-<?php include "partials/header.php" ?>
+<?php
+include "partials/header.php";
 
+if (isset($_GET['search'])) {
+    $search = filter_var($_GET['search'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $query_posts_all = mysqli_query($con, "SELECT * FROM posts WHERE title LIKE '%$search%' ORDER BY id DESC");
+}
+else {
+    header('location: ' . ROOT_URL . 'blog.php');
+}
+?>
 
-    <section class="search__bar">
-        <form class="container search__bar-container" action="<?= ROOT_URL ?>search.php" method="GET">
-            <div>
-                <i class="fa fa-search"></i>
-                <input type="search" name="search" placeholder="search">
-            </div>
-            <button type="submit" name="submit" class="btn">Go</button>
-        </form>
-    </section>
-
-    <!-- ================== END OF SEARCH ============= -->
-
-<div class="posts">
-    <div class="container posts__container">
+<?php if (mysqli_num_rows($query_posts_all) > 0):  ?>
+    <div class="posts section__extra-margin">
+        <div class="container posts_container">
         <?php
-            $query_posts_all = mysqli_query($con, "SELECT * FROM posts ORDER BY id DESC");
             foreach($query_posts_all as $row) {
                 $post_id = $row['id'];
                 $thumbnail = $row['thumbnail'];
@@ -61,25 +58,22 @@
                 <?php
             }
         ?>
+        </div>
     </div>
-</div>
-<!-- ================== END OF POSTS ============= -->
-
-<section class="category__buttons">
-    <div class="container category__buttons-container">
-        <?php
-            $query_cat = mysqli_query($con, "SELECT * FROM categories");
-            foreach ($query_cat as $row) {
-                $category_id = $row['id'];
-                $title = $row['title'];
-            ?>
-            <a href="<?= ROOT_URL ?>category-posts.php?id=<?= $category_id ?>" class="category__button"><?= $title ?></a>
-            <?php
-            }
-        ?>
+<?php else: ?>
+    <section class="search__bar">
+        <form class="container search__bar-container" action="<?= ROOT_URL ?>search.php" method="GET">
+            <div>
+                <i class="fa fa-search"></i>
+                <input type="search" name="search" placeholder="search">
+            </div>
+            <button type="submit" name="submit" class="btn">Go</button>
+        </form>
+    </section>
+    <div class="alert__message error lg section__extra-margin">
+        <p>No items match your search</p>
     </div>
-</section>
+<?php endif ?>
 
-<!-- ================== END OF CATEGORY BUTTONS ============= -->
 
 <?php include "partials/footer.php" ?>

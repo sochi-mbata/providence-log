@@ -23,8 +23,8 @@ if (isset($_POST['signup'])) {
     elseif (empty($email)) {
         $_SESSION['signup'] = "Email required";
     }
-    elseif (strlen($create_password) < 4 || strlen($confirm_password) < 4) {
-        $_SESSION['signup'] = "Password should be 4+ characters long";
+    elseif (strlen($create_password) < 6 || strlen($confirm_password) < 6) {
+        $_SESSION['signup'] = "Password should be 6+ characters long";
     }
     elseif (empty($avatar['name'])) {
         $_SESSION['signup'] = "Select an avatar";

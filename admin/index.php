@@ -99,6 +99,9 @@ include "partials/header.php";
                     <?php
                         $user_id = $_SESSION['user']['id'];
                         $query = "SELECT * FROM posts WHERE author_id = '$user_id'";
+                        if($_SESSION['user-role'] == 1 ){
+                            $query = "SELECT * FROM posts";
+                        }
                         $result = mysqli_query($con, $query);
 
                         if (mysqli_num_rows($result) > 0) {
@@ -119,7 +122,7 @@ include "partials/header.php";
                                     $category = $row['category'];
                                     ?>
                                         <tr>
-                                        <td><?= $title ?></td>
+                                        <td><a href="<?= ROOT_URL ?>post.php?id=<?= $id ?>"><?= $title ?></a></td>
                                         <td><?= $category ?></td>
                                         <td><a href="<?= ROOT_URL ?>admin/edit-post.php?id=<?= $id ?>" class="btn sm">Edit</a></td>
                                         <td><a href="<?= ROOT_URL ?>admin/delete-post-logic.php?id=<?= $id ?>" class="btn sm danger" onclick="confirmation_box();">Delete</a></td>
@@ -145,7 +148,7 @@ include "partials/header.php";
 <script>
 
 function confirmation_box() {
-    if (confirm('Are you sure?')) {
+    if (confirm('Are you sure? This action cannot be reversed')) {
         return true;
     }
     else {

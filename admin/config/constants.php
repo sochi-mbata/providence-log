@@ -1,6 +1,6 @@
 <?php
 session_start();
-define('ROOT_URL', 'http://localhost/PHP/Providence-log/');
+define('ROOT_URL', 'http://localhost/PHP/providence-log/');
 
 function isloggedIn() {
     if (isset($_SESSION['user'])) {
